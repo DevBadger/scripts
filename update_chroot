@@ -241,6 +241,8 @@ sudo -E ${EMERGE_CMD} "${EMERGE_FLAGS[@]}" \
     coreos-devel/sdk-depends world
 
 info "Removing obsolete packages"
+# XXX: Remove the binutils line after stable > 1535.
+sudo -E emerge --quiet --unmerge '<=sys-devel/binutils-2.28.0' 2>/dev/null || :
 sudo -E ${EMERGE_CMD} --quiet --depclean @unavailable
 
 if portageq list_preserved_libs / >/dev/null; then
